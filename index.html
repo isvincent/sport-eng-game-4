@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SPORTS ENGLISH ARENA｜體育班英語動起來</title>
+<style>
+:root{
+  --bg:#f6fbff; --ink:#17324d; --muted:#5f7388; --card:#ffffff;
+  --blue:#2d7ff9; --cyan:#27c4e8; --green:#34c77b; --yellow:#ffc83d;
+  --orange:#ff8a3d; --pink:#ff5e9a; --purple:#8057ff; --red:#ff5b5b;
+  --shadow:0 16px 38px rgba(25,72,114,.13);
+  --radius:26px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;background:
+radial-gradient(circle at 12% 8%,#dff7ff 0 14%,transparent 15%),
+radial-gradient(circle at 88% 12%,#fff0c7 0 12%,transparent 13%),
+linear-gradient(135deg,#f8fcff,#fff9f3);color:var(--ink)}
+button,input,select{font:inherit}
+button{cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:5px solid rgba(45,127,249,.28);outline-offset:3px}
+.app{max-width:1600px;margin:auto;padding:18px}
+.header{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);padding:18px 22px;border-radius:30px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:20}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{width:64px;height:64px;border-radius:22px;display:grid;place-items:center;font-size:34px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;box-shadow:0 10px 25px rgba(45,127,249,.28)}
+h1{font-size:clamp(24px,2.4vw,40px);margin:0;line-height:1.05}
+.subtitle{font-size:clamp(15px,1.25vw,20px);color:var(--muted);margin-top:6px}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{min-width:112px;padding:10px 14px;border-radius:20px;background:#fff;border:2px solid #e7f0f7;text-align:center}
+.stat b{display:block;font-size:clamp(20px,2vw,30px)}
+.stat span{font-size:14px;color:var(--muted)}
+.nav{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0}
+.nav button{border:0;border-radius:18px;padding:15px 10px;font-weight:900;font-size:clamp(15px,1.2vw,19px);background:#fff;color:var(--ink);box-shadow:0 8px 20px rgba(30,80,110,.08)}
+.nav button.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:white;transform:translateY(-2px)}
+.panel{display:none}
+.panel.active{display:block}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+.card{background:rgba(255,255,255,.92);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(18px,2vw,30px);border:1px solid rgba(255,255,255,.9)}
+.hero-title{font-size:clamp(34px,4vw,64px);line-height:1.04;margin:0 0 14px;font-weight:1000;letter-spacing:-1px}
+.highlight{background:linear-gradient(90deg,var(--blue),var(--pink));background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero p{font-size:clamp(18px,1.6vw,25px);line-height:1.7;color:#405a73}
+.big-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:18px;padding:15px 22px;font-weight:900;font-size:18px;box-shadow:0 8px 20px rgba(35,90,125,.14);transition:.15s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
+.green{background:linear-gradient(135deg,var(--green),#18b6a4);color:#fff}
+.yellow{background:linear-gradient(135deg,var(--yellow),var(--orange));color:#382500}
+.soft{background:#edf6ff;color:#244965}
+.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.feature{padding:20px;border-radius:22px;color:#17324d;min-height:145px}
+.feature b{display:block;font-size:23px;margin-bottom:8px}
+.feature span{font-size:17px;line-height:1.6}
+.feature:nth-child(1){background:#e4f2ff}.feature:nth-child(2){background:#e7fff1}.feature:nth-child(3){background:#fff3d8}.feature:nth-child(4){background:#ffe8f1}
+.section-title{font-size:clamp(26px,2.8vw,42px);margin:4px 0 16px}
+.section-desc{font-size:18px;color:var(--muted);margin:-8px 0 18px;line-height:1.6}
+.arena{position:relative;min-height:650px;border-radius:32px;background:linear-gradient(135deg,#eaf7ff,#fff6da);overflow:hidden;border:6px solid #fff;box-shadow:var(--shadow)}
+.arena::before{content:"";position:absolute;inset:0;background:
+linear-gradient(90deg,transparent 49.5%,rgba(23,50,77,.08) 50%,transparent 50.5%),
+linear-gradient(transparent 49.5%,rgba(23,50,77,.08) 50%,transparent 50.5%);pointer-events:none}
+.corner{position:absolute;width:40%;height:31%;border:0;border-radius:30px;padding:18px;font-weight:1000;color:#17324d;box-shadow:0 12px 28px rgba(40,70,90,.18);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;font-size:clamp(25px,3vw,48px);transition:.12s}
+.corner small{font-size:clamp(14px,1.25vw,19px);font-weight:800;opacity:.76}
+.corner:active{transform:scale(.97)}
+.c1{left:3%;top:4%;background:#bde9ff}.c2{right:3%;top:4%;background:#d9f8c6}.c3{left:3%;bottom:4%;background:#ffe8a7}.c4{right:3%;bottom:4%;background:#ffcbe0}
+.center-board{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(46%,620px);z-index:3;background:#fff;border-radius:30px;padding:24px;text-align:center;box-shadow:0 18px 50px rgba(30,65,90,.22)}
+.round-label{display:inline-block;background:#edf5ff;color:#2d62a4;border-radius:999px;padding:8px 14px;font-weight:900;font-size:16px}
+.prompt{font-size:clamp(28px,3.3vw,52px);font-weight:1000;margin:14px 0 8px;line-height:1.18}
+.prompt-cn{font-size:clamp(17px,1.5vw,23px);color:var(--muted);margin-bottom:14px}
+.timerbar{height:14px;background:#e9eff5;border-radius:99px;overflow:hidden}
+.timerfill{height:100%;background:linear-gradient(90deg,var(--green),var(--yellow),var(--red));width:100%;transition:width .1s linear}
+.status-line{font-size:18px;font-weight:900;margin-top:12px;min-height:28px}
+.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.vocab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.vocab-card{background:#fff;border-radius:24px;padding:20px;box-shadow:var(--shadow);border:3px solid transparent;transition:.15s}
+.vocab-card:hover{transform:translateY(-3px);border-color:#d7eaff}
+.word{font-size:clamp(25px,2vw,34px);font-weight:1000;color:#164a7c;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.meaning{font-size:20px;font-weight:900;margin:10px 0}
+.example{font-size:17px;line-height:1.55;color:#4b6278;background:#f5f9fd;padding:12px;border-radius:14px}
+.speak-mini{border:0;background:#eaf4ff;border-radius:12px;padding:8px 11px;font-size:19px}
+.practice-layout,.quiz-layout,.history-layout{display:grid;grid-template-columns:1fr .38fr;gap:18px}
+.practice-card{min-height:430px;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.practice-word{font-size:clamp(48px,6vw,96px);font-weight:1000;color:#174f87}
+.practice-meaning{font-size:clamp(24px,2.4vw,38px);margin:14px}
+.practice-example{font-size:clamp(18px,1.6vw,26px);line-height:1.5;background:#f2f8ff;padding:18px;border-radius:20px}
+.answer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+.answer-btn{border:0;border-radius:22px;padding:22px;font-size:clamp(18px,1.7vw,26px);font-weight:1000;background:#eef6ff;color:#17324d;min-height:90px}
+.answer-btn:hover{background:#dcebff}
+.side-card h3{font-size:24px;margin-top:0}
+.meter{height:18px;background:#edf1f5;border-radius:99px;overflow:hidden}
+.meter span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:0}
+.log{max-height:330px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.log-item{padding:12px 14px;border-radius:16px;background:#f4f8fb;font-size:15px;line-height:1.45}
+.quiz-question{font-size:clamp(26px,2.6vw,42px);font-weight:1000;line-height:1.3}
+.quiz-sub{font-size:19px;color:var(--muted);margin-top:10px}
+.ai-box{background:linear-gradient(135deg,#f2ecff,#e8f8ff);border-radius:22px;padding:18px;font-size:18px;line-height:1.65;min-height:150px}
+.history-table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.history-table th{font-size:15px;color:var(--muted);text-align:left;padding:8px}
+.history-table td{background:#f5f8fb;padding:12px 10px;font-size:16px}
+.history-table td:first-child{border-radius:14px 0 0 14px}.history-table td:last-child{border-radius:0 14px 14px 0}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(30px);background:#17324d;color:#fff;padding:13px 20px;border-radius:999px;font-size:17px;font-weight:900;opacity:0;pointer-events:none;transition:.25s;z-index:99}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;font-weight:900;font-size:14px;background:#edf6ff}
+.confetti{position:fixed;width:10px;height:18px;top:-30px;z-index:100;animation:fall 1.3s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(640deg);opacity:.6}}
+@media(max-width:1100px){
+ .nav{grid-template-columns:repeat(3,1fr)} .hero{grid-template-columns:1fr}
+ .vocab-grid{grid-template-columns:repeat(2,1fr)}
+ .practice-layout,.quiz-layout,.history-layout{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+ .app{padding:10px}.header{position:static}.stats{width:100%}.stat{flex:1}
+ .nav{grid-template-columns:repeat(2,1fr)}
+ .feature-grid,.vocab-grid,.answer-grid{grid-template-columns:1fr}
+ .arena{min-height:760px}
+ .corner{width:45%;height:27%;font-size:24px}
+ .center-board{width:86%;top:50%}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="brand">
+      <div class="logo">🏃</div>
+      <div>
+        <h1>SPORTS ENGLISH ARENA</h1>
+        <div class="subtitle">高中體育班｜跑、碰、聽、說，把英文學進身體裡</div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="scoreTop">0</b><span>總積分</span></div>
+      <div class="stat"><b id="streakTop">0</b><span>連勝</span></div>
+      <div class="stat"><b id="masteredTop">0</b><span>已熟練</span></div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <button class="active" data-panel="home">🏠 首頁</button>
+    <button data-panel="arena">🏟️ 四角衝刺</button>
+    <button data-panel="practice">🔁 反覆練習</button>
+    <button data-panel="quiz">🧠 學習測驗</button>
+    <button data-panel="vocab">📚 單字庫</button>
+    <button data-panel="history">📈 學習歷程</button>
+  </nav>
+
+  <main>
+    <section id="home" class="panel active">
+      <div class="hero">
+        <div class="card">
+          <span class="badge">🎯 大觸屏教室專用</span>
+          <h2 class="hero-title">讓學生真的<span class="highlight">動起來</span>學英文</h2>
+          <p>把教室大觸屏變成運動場。學生看到英文提示後，要移動到螢幕四角、拍下正確答案；也能用聽力、單字卡與測驗反覆練習。所有英文單字與例句都可點擊發音。</p>
+          <div class="big-actions">
+            <button class="btn primary jump" data-target="arena">開始四角衝刺 🏃‍♂️</button>
+            <button class="btn green jump" data-target="practice">進入反覆練習 🔁</button>
+            <button class="btn yellow jump" data-target="quiz">挑戰測驗 🧠</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="feature-grid">
+            <div class="feature"><b>🏃 全身互動</b><span>答案分布四角，學生必須移動、觸碰、回到中央等待下一題。</span></div>
+            <div class="feature"><b>🔊 全面發音</b><span>英文單字、句子與題目都可使用瀏覽器語音朗讀。</span></div>
+            <div class="feature"><b>📈 歷程記錄</b><span>自動保存練習次數、正確率、熟練單字與測驗成績。</span></div>
+            <div class="feature"><b>🤖 AI 教練</b><span>依學習表現產生本機回饋，不需 API Key，也能下載保存。</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="arena" class="panel">
+      <h2 class="section-title">🏟️ 四角衝刺：Touch & Run</h2>
+      <p class="section-desc">學生站在觸屏前中央。聽到或看到題目後，快速移動到四角之一並拍下答案。建議每題 10～15 秒，2～4 人輪流。</p>
+      <div class="arena" id="arenaBox">
+        <button class="corner c1" data-index="0"><span>OPTION A</span><small>左上角</small></button>
+        <button class="corner c2" data-index="1"><span>OPTION B</span><small>右上角</small></button>
+        <button class="corner c3" data-index="2"><span>OPTION C</span><small>左下角</small></button>
+        <button class="corner c4" data-index="3"><span>OPTION D</span><small>右下角</small></button>
+        <div class="center-board">
+          <span class="round-label" id="arenaRound">第 1 題</span>
+          <div class="prompt speakable" id="arenaPrompt" title="點一下可發音">準備好了嗎？</div>
+          <div class="prompt-cn" id="arenaHint">按「開始新題」進入挑戰</div>
+          <div class="timerbar"><div class="timerfill" id="timerFill"></div></div>
+          <div class="status-line" id="arenaStatus">🏁 Ready!</div>
+          <div class="controls">
+            <button class="btn primary" id="newArenaQ">開始新題</button>
+            <button class="btn soft" id="speakArena">🔊 再聽一次</button>
+            <button class="btn yellow" id="arenaMode">模式：英翻中</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="practice" class="panel">
+      <h2 class="section-title">🔁 反覆練習：Coach Drills</h2>
+      <p class="section-desc">用「看字、聽音、看例句、自我評估」形成反覆練習循環。按「還不熟」會提高該字再次出現的機率。</p>
+      <div class="practice-layout">
+        <div class="card practice-card">
+          <div class="practice-word speakable" id="pWord">sprint</div>
+          <div class="practice-meaning" id="pMeaning">短跑、衝刺</div>
+          <div class="practice-example speakable" id="pExample">I sprint to the finish line.</div>
+          <div class="big-actions" style="justify-content:center">
+            <button class="btn soft" id="pSpeakWord">🔊 單字發音</button>
+            <button class="btn soft" id="pSpeakSentence">🔊 例句發音</button>
+          </div>
+          <div class="big-actions" style="justify-content:center">
+            <button class="btn yellow" id="pAgain">😅 還不熟</button>
+            <button class="btn green" id="pKnow">💪 我會了</button>
+            <button class="btn primary" id="pNext">下一張 ➜</button>
+          </div>
+        </div>
+        <aside class="card side-card">
+          <h3>本回合進度</h3>
+          <div class="meter"><span id="practiceMeter"></span></div>
+          <p style="font-size:18px"><b id="practiceCount">0</b> 次練習｜<b id="practiceKnown">0</b> 次熟練</p>
+          <h3>最近操作</h3>
+          <div class="log" id="practiceLog"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="quiz" class="panel">
+      <h2 class="section-title">🧠 學習測驗：Game Test</h2>
+      <p class="section-desc">10 題隨機測驗，混合英翻中、中翻英與例句理解。完成後由 AI 教練依正確率提供下一步建議。</p>
+      <div class="quiz-layout">
+        <div class="card">
+          <span class="badge" id="quizProgress">尚未開始</span>
+          <div class="quiz-question speakable" id="quizQuestion" style="margin-top:18px">按下「開始測驗」</div>
+          <div class="quiz-sub" id="quizInstruction">完成 10 題即可取得成績與 AI 教練回饋。</div>
+          <div class="answer-grid" id="quizAnswers"></div>
+          <div class="big-actions">
+            <button class="btn primary" id="startQuiz">開始測驗</button>
+            <button class="btn soft" id="speakQuiz">🔊 朗讀題目</button>
+          </div>
+        </div>
+        <aside class="card side-card">
+          <h3>即時成績</h3>
+          <p style="font-size:22px">答對：<b id="quizCorrect">0</b>｜答錯：<b id="quizWrong">0</b></p>
+          <h3>🤖 AI 教練回饋</h3>
+          <div class="ai-box" id="aiFeedback">完成測驗後，這裡會依你的表現產生學習建議。</div>
+          <div class="big-actions">
+            <button class="btn soft" id="downloadAI">下載 AI 回覆</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="vocab" class="panel">
+      <h2 class="section-title">📚 運動英文單字庫</h2>
+      <p class="section-desc">點擊 🔊 或直接點英文內容即可聽發音。所有資料皆內建於此 HTML，不使用外部圖片或字型資源。</p>
+      <div class="toolbar">
+        <button class="btn primary" id="downloadVocab">⬇️ 下載單字與例句 CSV</button>
+        <button class="btn soft" id="shuffleVocab">🔀 隨機排列</button>
+      </div>
+      <div class="vocab-grid" id="vocabGrid"></div>
+    </section>
+
+    <section id="history" class="panel">
+      <h2 class="section-title">📈 學習歷程</h2>
+      <p class="section-desc">資料儲存在目前瀏覽器的 localStorage。換電腦或清除瀏覽器資料後會消失，建議定期下載備份。</p>
+      <div class="history-layout">
+        <div class="card">
+          <div class="toolbar">
+            <button class="btn primary" id="downloadHistory">⬇️ 下載學習歷程 CSV</button>
+            <button class="btn soft" id="downloadSummary">⬇️ 下載學習摘要 TXT</button>
+            <button class="btn yellow" id="resetData">🧹 清除本機紀錄</button>
+          </div>
+          <div style="overflow:auto">
+            <table class="history-table">
+              <thead><tr><th>時間</th><th>活動</th><th>內容</th><th>結果</th><th>積分</th></tr></thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <aside class="card side-card">
+          <h3>學習總覽</h3>
+          <p style="font-size:19px;line-height:1.8">
+            總操作：<b id="hTotal">0</b><br>
+            正確答題：<b id="hCorrect">0</b><br>
+            錯誤答題：<b id="hWrong">0</b><br>
+            累積積分：<b id="hScore">0</b><br>
+            已熟練單字：<b id="hMastered">0</b>
+          </p>
+          <h3>學習建議</h3>
+          <div class="ai-box" id="historyAdvice">先開始練習，系統就會累積資料。</div>
+        </aside>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const vocab = [
+ {w:"sprint",m:"短跑；衝刺",e:"I sprint to the finish line."},
+ {w:"warm up",m:"暖身",e:"We warm up before every practice."},
+ {w:"stretch",m:"伸展",e:"Stretch your legs before you run."},
+ {w:"dribble",m:"運球",e:"She can dribble the basketball quickly."},
+ {w:"pass",m:"傳球",e:"Pass the ball to your teammate."},
+ {w:"shoot",m:"投籃；射門",e:"He shoots the ball into the basket."},
+ {w:"score",m:"得分",e:"Our team scores the first point."},
+ {w:"defend",m:"防守",e:"We defend our goal together."},
+ {w:"attack",m:"進攻",e:"The team attacks from the left side."},
+ {w:"teammate",m:"隊友",e:"I always encourage my teammates."},
+ {w:"opponent",m:"對手",e:"Respect your opponent after the game."},
+ {w:"coach",m:"教練",e:"The coach gives us clear instructions."},
+ {w:"referee",m:"裁判",e:"The referee blows the whistle."},
+ {w:"whistle",m:"哨子；吹哨",e:"Listen for the whistle before you start."},
+ {w:"finish line",m:"終點線",e:"She crosses the finish line first."},
+ {w:"lap",m:"一圈",e:"We run four laps around the track."},
+ {w:"track",m:"跑道",e:"The runners are waiting on the track."},
+ {w:"court",m:"球場",e:"Meet me on the basketball court."},
+ {w:"field",m:"運動場；球場",e:"The players run onto the field."},
+ {w:"goal",m:"球門；目標",e:"He kicks the ball toward the goal."},
+ {w:"serve",m:"發球",e:"She serves the volleyball over the net."},
+ {w:"spike",m:"扣球",e:"He spikes the ball with power."},
+ {w:"rebound",m:"籃板球",e:"She grabs the rebound."},
+ {w:"tackle",m:"攔截；擒抱",e:"The defender makes a clean tackle."},
+ {w:"pace",m:"配速；步調",e:"Keep a steady pace during the race."},
+ {w:"stamina",m:"耐力",e:"Long-distance running builds stamina."},
+ {w:"balance",m:"平衡",e:"Good balance helps you change direction."},
+ {w:"strength",m:"力量",e:"Strength training helps prevent injuries."},
+ {w:"speed",m:"速度",e:"Speed is important in a short race."},
+ {w:"agility",m:"敏捷性",e:"Agility helps players move quickly."},
+ {w:"recover",m:"恢復",e:"Drink water and recover after training."},
+ {w:"hydration",m:"補充水分",e:"Hydration is important during exercise."}
+];
+
+let data = JSON.parse(localStorage.getItem("sportsEnglishArena")||"null") || {
+ score:0, streak:0, mastered:{}, history:[], arenaRound:0, quizBest:0
+};
+let arenaMode=0, arenaAnswer=null, arenaTimer=null, arenaQ=null;
+let practiceIndex=0, practiceCount=0, practiceKnown=0;
+let quiz=[], quizIndex=0, quizCorrect=0, quizWrong=0, quizActive=false;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+function save(){localStorage.setItem("sportsEnglishArena",JSON.stringify(data)); updateStats();}
+function updateStats(){
+ $("#scoreTop").textContent=data.score;
+ $("#streakTop").textContent=data.streak;
+ $("#masteredTop").textContent=Object.keys(data.mastered).length;
+ $("#hTotal").textContent=data.history.length;
+ $("#hCorrect").textContent=data.history.filter(x=>x.result==="正確"||x.result==="熟練").length;
+ $("#hWrong").textContent=data.history.filter(x=>x.result==="錯誤"||x.result==="還不熟").length;
+ $("#hScore").textContent=data.score;
+ $("#hMastered").textContent=Object.keys(data.mastered).length;
+ renderHistory();
+ updateAdvice();
+}
+function log(activity,content,result,points=0){
+ data.history.unshift({time:new Date().toLocaleString("zh-TW"),activity,content,result,points});
+ data.history=data.history.slice(0,300);
+ data.score=Math.max(0,data.score+points);
+ save();
+}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1600)}
+function beep(type="ok"){
+ const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+ const c=new C(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);
+ o.type=type==="ok"?"sine":"sawtooth";o.frequency.value=type==="ok"?700:180;
+ g.gain.setValueAtTime(.12,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.22);
+ o.start();o.stop(c.currentTime+.23);
+}
+function confetti(){
+ const colors=["#2d7ff9","#34c77b","#ffc83d","#ff5e9a","#8057ff"];
+ for(let i=0;i<22;i++){let d=document.createElement("div");d.className="confetti";d.style.left=Math.random()*100+"vw";d.style.background=colors[i%colors.length];d.style.animationDelay=Math.random()*.25+"s";document.body.appendChild(d);setTimeout(()=>d.remove(),1800)}
+}
+function speak(text,rate=.9){
+ if(!("speechSynthesis" in window)){toast("此瀏覽器不支援語音朗讀");return}
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=rate;u.pitch=1;
+ const voices=speechSynthesis.getVoices();
+ const v=voices.find(v=>v.lang==="en-US")||voices.find(v=>v.lang.startsWith("en"));
+ if(v)u.voice=v;speechSynthesis.speak(u);
+}
+document.addEventListener("click",e=>{const s=e.target.closest(".speakable");if(s)speak(s.textContent.trim())});
+
+function switchPanel(id){
+ $$(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
+ $$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.panel===id));
+ if(id==="history")updateStats();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+$$(".nav button").forEach(b=>b.onclick=()=>switchPanel(b.dataset.panel));
+$$(".jump").forEach(b=>b.onclick=()=>switchPanel(b.dataset.target));
+
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function renderVocab(list=vocab){
+ $("#vocabGrid").innerHTML=list.map(v=>`
+ <article class="vocab-card">
+  <div class="word"><span class="speakable">${v.w}</span><button class="speak-mini" onclick="event.stopPropagation();speak('${v.w.replace(/'/g,"\\'")}')">🔊</button></div>
+  <div class="meaning">${v.m}</div>
+  <div class="example speakable">${v.e}</div>
+ </article>`).join("");
+}
+$("#shuffleVocab").onclick=()=>renderVocab(shuffle(vocab));
+
+function buildArenaQuestion(){
+ clearInterval(arenaTimer); data.arenaRound++; save();
+ const v=vocab[Math.floor(Math.random()*vocab.length)];
+ arenaQ=v; let options, prompt, hint;
+ if(arenaMode===0){
+  prompt=v.w; hint="跑到正確的中文意思"; options=shuffle([v,...shuffle(vocab.filter(x=>x.w!==v.w)).slice(0,3)]).map(x=>x.m); arenaAnswer=v.m;
+ }else if(arenaMode===1){
+  prompt=v.m; hint="跑到正確的英文單字"; options=shuffle([v,...shuffle(vocab.filter(x=>x.w!==v.w)).slice(0,3)]).map(x=>x.w); arenaAnswer=v.w;
+ }else{
+  prompt=v.e; hint="聽例句，找出句中主要運動單字"; options=shuffle([v,...shuffle(vocab.filter(x=>x.w!==v.w)).slice(0,3)]).map(x=>x.w); arenaAnswer=v.w;
+ }
+ $("#arenaRound").textContent=`第 ${data.arenaRound} 題`;
+ $("#arenaPrompt").textContent=prompt; $("#arenaHint").textContent=hint; $("#arenaStatus").textContent="🏃 找到答案就衝過去！";
+ $$(".corner").forEach((b,i)=>b.querySelector("span").textContent=options[i]);
+ speak(prompt);
+ let t=12; $("#timerFill").style.width="100%";
+ arenaTimer=setInterval(()=>{t-=.1;$("#timerFill").style.width=Math.max(0,t/12*100)+"%";if(t<=0){clearInterval(arenaTimer);$("#arenaStatus").textContent="⏰ 時間到！再挑戰一次";data.streak=0;log("四角衝刺",v.w,"錯誤",0);beep("bad")}},100);
+}
+$$(".corner").forEach(b=>b.onclick=()=>{
+ if(!arenaQ)return toast("請先按「開始新題」");
+ const ans=b.querySelector("span").textContent; clearInterval(arenaTimer);
+ if(ans===arenaAnswer){
+  $("#arenaStatus").textContent="✅ 正確！+10 分";data.streak++;log("四角衝刺",arenaQ.w,"正確",10);beep("ok");confetti();
+ }else{
+  $("#arenaStatus").textContent=`❌ 再加油！正確答案：${arenaAnswer}`;data.streak=0;log("四角衝刺",arenaQ.w,"錯誤",0);beep("bad");
+ }
+ setTimeout(buildArenaQuestion,1100);
+});
+$("#newArenaQ").onclick=buildArenaQuestion;
+$("#speakArena").onclick=()=>speak($("#arenaPrompt").textContent);
+$("#arenaMode").onclick=e=>{arenaMode=(arenaMode+1)%3;e.target.textContent="模式："+["英翻中","中翻英","例句聽力"][arenaMode];toast("已切換題型")};
+
+function showPractice(){
+ const v=vocab[practiceIndex%vocab.length];$("#pWord").textContent=v.w;$("#pMeaning").textContent=v.m;$("#pExample").textContent=v.e;
+ $("#practiceCount").textContent=practiceCount;$("#practiceKnown").textContent=practiceKnown;
+ $("#practiceMeter").style.width=Math.min(100,practiceKnown/10*100)+"%";
+}
+function addPracticeLog(txt){const d=document.createElement("div");d.className="log-item";d.textContent=new Date().toLocaleTimeString("zh-TW")+"｜"+txt;$("#practiceLog").prepend(d)}
+$("#pNext").onclick=()=>{practiceIndex=(practiceIndex+1)%vocab.length;showPractice()}
+$("#pSpeakWord").onclick=()=>speak($("#pWord").textContent);
+$("#pSpeakSentence").onclick=()=>speak($("#pExample").textContent);
+$("#pAgain").onclick=()=>{practiceCount++;let w=$("#pWord").textContent;log("反覆練習",w,"還不熟",0);addPracticeLog(`😅 ${w}：還不熟，稍後再來`);practiceIndex=(practiceIndex+Math.floor(Math.random()*5)+1)%vocab.length;showPractice();beep("bad")}
+$("#pKnow").onclick=()=>{practiceCount++;practiceKnown++;let w=$("#pWord").textContent;data.mastered[w]=(data.mastered[w]||0)+1;log("反覆練習",w,"熟練",3);addPracticeLog(`💪 ${w}：我會了 +3`);practiceIndex=(practiceIndex+1)%vocab.length;showPractice();beep("ok")}
+
+function makeQuiz(){
+ return shuffle(vocab).slice(0,10).map((v,i)=>{
+  const mode=i%3;
+  if(mode===0)return {q:v.w,sub:"選出正確的中文意思",a:v.m,opts:shuffle([v,...shuffle(vocab.filter(x=>x.w!==v.w)).slice(0,3)]).map(x=>x.m),key:v.w};
+  if(mode===1)return {q:v.m,sub:"選出正確的英文單字",a:v.w,opts:shuffle([v,...shuffle(vocab.filter(x=>x.w!==v.w)).slice(0,3)]).map(x=>x.w),key:v.w};
+  return {q:v.e,sub:"例句中的主要運動單字是哪一個？",a:v.w,opts:shuffle([v,...shuffle(vocab.filter(x=>x.w!==v.w)).slice(0,3)]).map(x=>x.w),key:v.w};
+ });
+}
+function showQuiz(){
+ if(quizIndex>=quiz.length){finishQuiz();return}
+ const q=quiz[quizIndex];$("#quizProgress").textContent=`第 ${quizIndex+1} / 10 題`;$("#quizQuestion").textContent=q.q;$("#quizInstruction").textContent=q.sub;
+ $("#quizAnswers").innerHTML=q.opts.map(o=>`<button class="answer-btn">${o}</button>`).join("");
+ $$("#quizAnswers .answer-btn").forEach(b=>b.onclick=()=>answerQuiz(b.textContent));
+ if(/[A-Za-z]/.test(q.q))speak(q.q);
+}
+function answerQuiz(ans){
+ if(!quizActive)return;const q=quiz[quizIndex];
+ if(ans===q.a){quizCorrect++;data.streak++;log("學習測驗",q.key,"正確",8);beep("ok")}else{quizWrong++;data.streak=0;log("學習測驗",q.key,"錯誤",0);beep("bad")}
+ $("#quizCorrect").textContent=quizCorrect;$("#quizWrong").textContent=quizWrong;quizIndex++;showQuiz();
+}
+function finishQuiz(){
+ quizActive=false;const pct=quizCorrect*10;data.quizBest=Math.max(data.quizBest,pct);save();
+ $("#quizProgress").textContent=`完成！${pct} 分`;$("#quizQuestion").textContent="測驗完成 🎉";$("#quizInstruction").textContent="查看右側 AI 教練回饋，並可下載保存。";$("#quizAnswers").innerHTML="";
+ let fb=pct>=90?`太棒了！你得到 ${pct} 分。你的運動英語辨識已很穩定。下一步可把單字放進口語情境，例如賽前指令、比賽溝通與賽後訪談。`
+ :pct>=70?`你得到 ${pct} 分，核心單字已掌握不少。建議回到「反覆練習」，針對容易混淆的動詞與場地字彙再練 2 回合，再重新測驗。`
+ :`你得到 ${pct} 分。先不用急著追求速度，建議從「單字庫＋發音」開始，每次挑 8 個字，聽音、跟讀，再進入四角衝刺。身體動作和語音一起記，效果會更好。`;
+ $("#aiFeedback").textContent=fb;confetti();log("完成測驗","10題測驗",`${pct}分`,20);
+}
+$("#startQuiz").onclick=()=>{quiz=makeQuiz();quizIndex=0;quizCorrect=0;quizWrong=0;quizActive=true;$("#quizCorrect").textContent=0;$("#quizWrong").textContent=0;$("#aiFeedback").textContent="測驗進行中…";showQuiz()}
+$("#speakQuiz").onclick=()=>speak($("#quizQuestion").textContent);
+
+function renderHistory(){
+ $("#historyBody").innerHTML=data.history.length?data.history.map(x=>`<tr><td>${x.time}</td><td>${x.activity}</td><td>${x.content}</td><td>${x.result}</td><td>${x.points>=0?"+":""}${x.points}</td></tr>`).join(""):`<tr><td colspan="5">目前還沒有學習紀錄。</td></tr>`;
+}
+function updateAdvice(){
+ const total=data.history.length, correct=data.history.filter(x=>x.result==="正確"||x.result==="熟練").length;
+ const rate=total?Math.round(correct/total*100):0;
+ $("#historyAdvice").textContent= total===0?"先從四角衝刺或反覆練習開始。":
+ rate>=75?`目前成功率約 ${rate}%；可以提高挑戰，改用例句聽力模式與中翻英。`:
+ `目前成功率約 ${rate}%；建議先縮小單字量，反覆「聽音→說出→做動作→再答題」，建立穩定記憶。`;
+}
+function download(name,text,type="text/plain;charset=utf-8"){
+ const blob=new Blob(["\ufeff"+text],{type});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
+}
+$("#downloadVocab").onclick=()=>{
+ const csv="英文單字,中文意思,英文例句\n"+vocab.map(v=>`"${v.w}","${v.m}","${v.e}"`).join("\n");download("sports_english_vocabulary.csv",csv,"text/csv;charset=utf-8");
+}
+$("#downloadHistory").onclick=()=>{
+ const csv="時間,活動,內容,結果,積分\n"+data.history.map(x=>`"${x.time}","${x.activity}","${x.content}","${x.result}","${x.points}"`).join("\n");download("sports_english_learning_history.csv",csv,"text/csv;charset=utf-8");
+}
+$("#downloadSummary").onclick=()=>{
+ const txt=`SPORTS ENGLISH ARENA 學習摘要
+產生時間：${new Date().toLocaleString("zh-TW")}
+總操作：${data.history.length}
+累積積分：${data.score}
+目前連勝：${data.streak}
+已熟練單字：${Object.keys(data.mastered).length}
+最佳測驗成績：${data.quizBest} 分
+
+熟練單字：
+${Object.keys(data.mastered).join("、")||"尚無"}
+
+學習建議：
+${$("#historyAdvice").textContent}`;
+ download("sports_english_summary.txt",txt);
+}
+$("#downloadAI").onclick=()=>download("sports_english_ai_coach.txt",`SPORTS ENGLISH ARENA｜AI 教練回覆
+${new Date().toLocaleString("zh-TW")}
+
+${$("#aiFeedback").textContent}`);
+$("#resetData").onclick=()=>{
+ if(confirm("確定要清除本機所有學習紀錄嗎？")){
+  localStorage.removeItem("sportsEnglishArena");data={score:0,streak:0,mastered:{},history:[],arenaRound:0,quizBest:0};updateStats();toast("已清除本機紀錄");
+ }
+};
+renderVocab();showPractice();updateStats();
+speechSynthesis?.getVoices();
+</script>
+</body>
+</html>
